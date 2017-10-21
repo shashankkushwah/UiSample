@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">UiSample</string>
+    <string name="slash">/</string>
+
+    <string name="transition_title">title</string>
+    <string name="transition_card">card</string>
+    <string name="transition_background">background</string>
+    <string name="transition_author_image">author_image</string>
+    <string name="transition_author_name">author_name</string>
+    <string name="transition_description">description</string>
+    <string name="transition_views">views</string>
+    <string name="transition_comments">comments</string>
+    <string name="transition_likes">likes</string>
+
+</resources>

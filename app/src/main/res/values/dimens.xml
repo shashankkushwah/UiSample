@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_onehalf">24dp</dimen>
+    <dimen name="margin">16dp</dimen>
+    <dimen name="margin_half">8dp</dimen>
+    <dimen name="margin_quarter">4dp</dimen>
+    <dimen name="negative_margin">-16dp</dimen>
+    <dimen name="negative_margin_half">-8dp</dimen>
+    <dimen name="viewpager_horizontal_padding">56dp</dimen>
+    <dimen name="viewpager_vertical_padding">16dp</dimen>
+    <dimen name="card_corner_radius">8dp</dimen>
+    <dimen name="profile_image_width">40dp</dimen>
+    <dimen name="profile_image_height">40dp</dimen>
+
+    <dimen name="detail_image_height">240dp</dimen>
+
+    <dimen name="margin_start_recyclerview_divider">32dp</dimen>
+    <dimen name="margin_end_recyclerview_divider">16dp</dimen>
+
+    <dimen name="textsize_counter">60sp</dimen>
+</resources>

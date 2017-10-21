@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="color_primary">#3F51B5</color>
+    <color name="color_primary_dark">#000000</color>
+    <color name="color_accent">#FF4081</color>
+    <color name="color_gray">#505050</color>
+    <color name="color_trans_black">#20000000</color>
+    <color name="color_trans_white">#eeffffff</color>
+
+    <color name="eclipse">#383737</color>
+    <color name="purple">#7076ae</color>
+    <color name="foggy_grey">#A4A4A3</color>
+    <color name="cloud">#BEBDBB</color>
+    <color name="timberwolf">#D4D3D1</color>
+    <color name="ivory">#F9F9F7</color>
+    <color name="white">#FFFFFF</color>
+    <color name="icons">#98a1b3</color>
+
+
+</resources>
