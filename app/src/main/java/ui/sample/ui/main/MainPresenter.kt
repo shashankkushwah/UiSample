@@ -1,7 +1,9 @@
 package ui.sample.ui.main
 
 import android.content.Context
-import ui.sample.data.model.Mock
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import ui.sample.data.network.ApiHelper
 
 /**
@@ -9,37 +11,42 @@ import ui.sample.data.network.ApiHelper
  */
 class MainPresenter(var view: MainContract.View?, private val apiHelper: ApiHelper) : MainContract.Presenter {
 
+    private val compositeDisposable = CompositeDisposable()
+
     override fun loadMockData() {
         view?.setProgressIndicator(true)
-        apiHelper.getMockList(object : ApiHelper.Callback<List<Mock>> {
-            override fun onSuccess(data: List<Mock>) {
-                view?.setProgressIndicator(false)
-                view?.showMockData(data)
+        compositeDisposable.add(apiHelper.getMockList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers
+                .mainThread()).subscribe({ comicResponse ->
+            view?.setProgressIndicator(false)
+            view?.showMockData(comicResponse.data.results)
+        }, { t: Throwable ->
+            var message = "Something went wrong!"
+            t.message?.let {
+                message = t.message!!
             }
-
-            override fun onFailed(message: String) {
-                view?.setProgressIndicator(false)
-                view?.showMessage(message)
-            }
-        })
+            view?.setProgressIndicator(false)
+            view?.showMessage(message)
+        }))
     }
 
     override fun loadLocalMockData(context: Context) {
         view?.setProgressIndicator(true)
-        apiHelper.getLocalMockList(context, object : ApiHelper.Callback<List<Mock>> {
-            override fun onSuccess(data: List<Mock>) {
-                view?.setProgressIndicator(false)
-                view?.showMockData(data)
-            }
-
-            override fun onFailed(message: String) {
-                view?.setProgressIndicator(false)
-                view?.showMessage(message)
-            }
-        })
+        compositeDisposable.add(apiHelper.getLocalMockList(context).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ mockyResponse ->
+                    view?.setProgressIndicator(false)
+                    view?.showMockData(mockyResponse.data.results)
+                }, { t: Throwable ->
+                    var message = "Something went wrong!"
+                    t.message?.let {
+                        message = t.message!!
+                    }
+                    view?.setProgressIndicator(false)
+                    view?.showMessage(message)
+                }))
     }
 
     override fun onDetach() {
+        compositeDisposable.dispose()
         view = null
     }
 

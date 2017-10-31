@@ -45,7 +45,8 @@ class UiSampleApplication : Application() {
                 .readTimeout(60, TimeUnit.SECONDS)
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .followSslRedirects(true)
-                .followRedirects(true).retryOnConnectionFailure(true)
+                .followRedirects(true)
+                .retryOnConnectionFailure(true)
                 .connectionPool(ConnectionPool(30, 120, TimeUnit.SECONDS))
                 .build()
 

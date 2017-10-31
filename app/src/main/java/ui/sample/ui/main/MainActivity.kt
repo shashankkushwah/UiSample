@@ -18,15 +18,22 @@ import ui.sample.utils.ImageUtils
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
+    private var CURRENT_INDEX = "current_index"
+
     private lateinit var apiHelper: ApiHelper
 
     private lateinit var mainPagerAdapter: MainPagerAdapter
     private lateinit var presenter: MainContract.Presenter
 
+    private var currentIndex = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        savedInstanceState?.let {
+            currentIndex = it.getInt(CURRENT_INDEX)
+        }
         setupViews()
 
         val application = UiSampleApplication.get(this)
@@ -34,6 +41,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         presenter = MainPresenter(this, apiHelper)
         presenter.loadLocalMockData(this)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        outState?.putInt(CURRENT_INDEX, viewpager.currentItem)
+        super.onSaveInstanceState(outState)
     }
 
     private fun setupViews() {
@@ -94,14 +106,14 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun showMockData(mockList: List<Mock>) {
         mainPagerAdapter.setMockList(mockList)
-        viewpager.currentItem = 0
+        viewpager.currentItem = currentIndex
         textview_current.text = (viewpager.currentItem + 1).toString()
         textview_total.text = mockList.size.toString()
 
         textview_slash.animate().alpha(1f).setDuration(200).start()
         textview_current.animate().alpha(1f).setDuration(200).start()
         textview_total.animate().alpha(1f).setDuration(200).start()
-        setBackground(0, mainPagerAdapter.getMockItem(0))
+        setBackground(viewpager.currentItem, mainPagerAdapter.getMockItem(viewpager.currentItem))
     }
 
     override fun showMessage(message: String) {
